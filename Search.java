@@ -27,20 +27,44 @@ public class Search {
     }
 
     private static void DFS(Node current, int depth) {
+        String indent = getIndent(depth);
         if (containsConstraintViolations(current, current.getParent())) {
-            System.out.println(" " + current.getVariableName() + " = " + current.getValue() + " FAILURE");
+            System.out.println(indent + current.getVariableName() + " = " + current.getValue() + " FAILURE");
         } else {
             if (depth != order.size()) {
-                System.out.println(" " + current.getVariableName() + " = " + current.getValue());
+                System.out.println(indent + current.getVariableName() + " = " + current.getValue());
                 initializeNextLevel(current, order.get(depth), depth);
                 updateFrontier(current);
             } else {
-                System.out.println(" " + current.getVariableName() + " = " + current.getValue() + " SUCCESS");
+                System.out.println(indent + current.getVariableName() + " = " + current.getValue() + " SUCCESS");
             }
         }
         if (!frontier.isEmpty()) {
             current = frontier.pop();
             DFS(current, current.getDepth());
+        }
+    }
+
+    private static String getIndent(int depth) {
+        switch (depth) {
+            case 1:
+                return " ";
+            case 2:
+                return "  ";
+            case 3:
+                return "   ";
+            case 4:
+                return "    ";
+            case 5:
+                return "     ";
+            case 6:
+                return "      ";
+            case 7:
+                return "       ";
+            case 8:
+                return "        ";
+            default:
+                return "";
         }
     }
 
