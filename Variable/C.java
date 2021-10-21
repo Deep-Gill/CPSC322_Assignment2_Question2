@@ -1,0 +1,50 @@
+package Variable;
+public class C extends Variable {
+    public C() {
+        name = "C";
+        constrainsWith[0] = "H";
+        constrainsWith[1] = "G";
+        constrainsWith[2] = "F";
+        constrainsWith[3] = "E";
+        constrainsWith[4] = "D";
+    }
+
+    public boolean checkConstraint(String name, int valC, int valO) {
+        switch (name) {
+            case "H":
+                return CH(valC, valO);
+            case "G":
+                return CG(valC, valO);
+            case "F":
+                return CF(valC, valO);
+            case "E":
+                return CE(valC, valO);
+            case "D":
+                return CD(valC, valO);
+            default:
+                return false;
+        }
+    }
+
+    private boolean CH(int valC, int valH) {
+        int diff = valH - valC;
+        return (diff % 2 == 0);
+    }
+
+    private boolean CG(int valC, int valG) {
+        int diff = valG - valC;
+        return ((diff == 1) || (diff == -1));
+    }
+
+    private boolean CF(int valC, int valF) {
+        return (valF != valC);
+    }
+
+    private boolean CE(int valC, int valE) {
+        return (valE != valC);
+    }
+
+    private boolean CD(int valC, int valD) {
+        return (valD != valC);
+    }
+}
