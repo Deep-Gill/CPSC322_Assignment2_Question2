@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 
 import Node.Node;
@@ -12,15 +13,15 @@ import Variable.H;
 import Variable.Variable;
 
 public class Search {
-    private static String[] order;
+    private static ArrayList<String> order;
     private static Stack<Node> frontier;
 
     public static void main(String[] args) {
         initializeOrder(args);
-        int n = args.length;
+        frontier = new Stack<Node>();
         Node parent = new Node(null, null, 0, 0);
-        initializeNextLevel(parent, order[0], 0);
-        updateStack(parent);
+        initializeNextLevel(parent, order.get(0), 0);
+        updateFrontier(parent);
         Node current = frontier.pop();
         DFS(current, 1);
     }
@@ -29,10 +30,10 @@ public class Search {
         if (containsConstraintViolations(current, current.getParent())) {
             System.out.println(" " + current.getVariableName() + " = " + current.getValue() + " FAILURE");
         } else {
-            if (depth != order.length) {
+            if (depth != order.size()) {
                 System.out.println(" " + current.getVariableName() + " = " + current.getValue());
-                initializeNextLevel(current, order[depth], depth);
-                updateStack(current);
+                initializeNextLevel(current, order.get(depth), depth);
+                updateFrontier(current);
             } else {
                 System.out.println(" " + current.getVariableName() + " = " + current.getValue() + " SUCCESS");
             }
@@ -43,7 +44,7 @@ public class Search {
         }
     }
 
-    private static void updateStack(Node parent) {
+    private static void updateFrontier(Node parent) {
         frontier.push(parent.getFourth());
         frontier.push(parent.getThird());
         frontier.push(parent.getSecond());
@@ -116,8 +117,9 @@ public class Search {
     }
 
     private static void initializeOrder(String[] args) {
+        order = new ArrayList<String>();
         for (int i = 0; i < args.length; i++) {
-            order[i] = args[i];
+            order.add(args[i]);
         }
     }
 

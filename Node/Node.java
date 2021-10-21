@@ -1,4 +1,6 @@
 package Node;
+import java.util.ArrayList;
+
 import Variable.*;
 
 public class Node {
@@ -71,15 +73,15 @@ public class Node {
     }
 
     public boolean validateConstraintsWith(Node ancestor) {
-        String[] listOfConstraints = this.variable.getConstraintsVariables();
-        int length = listOfConstraints.length;
+        ArrayList<String> listOfConstraints = this.variable.getConstraintsVariables();
+        int length = listOfConstraints.size();
 
         if (ancestor.getParent() == null) {
             return true;
         }
 
         for (int i = 0; i < length; i++) {
-            if (ancestor.getVariableName() == listOfConstraints[i]) {
+            if (ancestor.getVariableName() == listOfConstraints.get(i)) {
                 return this.variable.checkConstraint(ancestor.getVariableName(), this.value, ancestor.value);
             }
         }

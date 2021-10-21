@@ -1,12 +1,16 @@
 package Variable;
+
+import java.util.ArrayList;
+
 public class C extends Variable {
     public C() {
         name = "C";
-        constrainsWith[0] = "H";
-        constrainsWith[1] = "G";
-        constrainsWith[2] = "F";
-        constrainsWith[3] = "E";
-        constrainsWith[4] = "D";
+        constrainsWith = new ArrayList<String>(5);
+        constrainsWith.add("H");
+        constrainsWith.add("G");
+        constrainsWith.add("F");
+        constrainsWith.add("E");
+        constrainsWith.add("D");
     }
 
     public boolean checkConstraint(String name, int valC, int valO) {

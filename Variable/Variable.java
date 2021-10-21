@@ -1,8 +1,10 @@
 package Variable;
 
+import java.util.ArrayList;
+
 public abstract class Variable {
     protected String name;
-    protected String[] constrainsWith;
+    protected ArrayList<String> constrainsWith;
 
     public Variable() {
 
@@ -14,7 +16,7 @@ public abstract class Variable {
         return name;
     }
 
-    public String[] getConstraintsVariables() {
+    public ArrayList<String> getConstraintsVariables() {
         return constrainsWith;
     }
 }
