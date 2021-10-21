@@ -15,6 +15,7 @@
             "name": "Launch Search",
             "request": "launch",
             "mainClass": "Search",
+            "args": "H G F D C E A B",
             "projectName": "CPSC322_Assignment2_Question2_afd4c279"
         }
     ]
