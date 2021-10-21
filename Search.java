@@ -15,34 +15,73 @@ import Variable.Variable;
 public class Search {
     private static ArrayList<String> order;
     private static Stack<Node> frontier;
+    private static int failingBranches;
+    private static ArrayList<String> solutions;
 
     public static void main(String[] args) {
         initializeOrder(args);
         frontier = new Stack<Node>();
+        solutions = new ArrayList<String>();
+        failingBranches = 0;
         Node parent = new Node(null, null, 0, 0);
         initializeNextLevel(parent, order.get(0), 0);
         updateFrontier(parent);
         Node current = frontier.pop();
         DFS(current, 1);
+        System.out.println("Number of failing branches is " + failingBranches);
+        System.out.println("Solutions: ");
+        printSolutions();
+    }
+
+    private static void printSolutions() {
+        int length = solutions.size();
+        for (int i = 0; i < length; i++) {
+            System.out.println("\t" + solutions.get(i));
+        }
     }
 
     private static void DFS(Node current, int depth) {
         String indent = getIndent(depth);
         if (containsConstraintViolations(current, current.getParent())) {
             System.out.println(indent + current.getVariableName() + " = " + current.getValue() + " FAILURE");
+            failingBranches++;
         } else {
             if (depth != order.size()) {
                 System.out.println(indent + current.getVariableName() + " = " + current.getValue());
                 initializeNextLevel(current, order.get(depth), depth);
                 updateFrontier(current);
             } else {
-                System.out.println(indent + current.getVariableName() + " = " + current.getValue() + " SUCCESS");
+                System.out.print(indent + current.getVariableName() + " = " + current.getValue() + " SOLUTION: ");
+                String path = printAndCopyPath(current, "");
+                solutions.add(path);
             }
         }
         if (!frontier.isEmpty()) {
             current = frontier.pop();
             DFS(current, current.getDepth());
         }
+    }
+
+    private static String printAndCopyPath(Node current, String path) {
+        if (current.getParent() == null) {
+            System.out.print("\n");
+            return path;
+        }
+        String newPath = initializeNewPath(current);
+        path = path + newPath;
+        System.out.print(newPath);
+        return printAndCopyPath(current.getParent(), path);
+    }
+
+    private static String initializeNewPath(Node current) {
+        if (current.getParent() != null) {
+            if (current.getParent().getParent() == null) {
+                return current.getVariableName() + " = " + current.getValue() + " ";
+            } else {
+                return current.getVariableName() + " = " + current.getValue() + ", ";
+            }
+        }
+        return "";
     }
 
     private static String getIndent(int depth) {
