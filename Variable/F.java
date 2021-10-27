@@ -11,6 +11,7 @@ public class F extends Variable {
         constrainsWith.add("H");
         constrainsWith.add("G");
         constrainsWith.add("B");
+        constrainsWith.add("D");
     }
 
     public boolean checkConstraint(String name, int valF, int valO) {
@@ -25,14 +26,25 @@ public class F extends Variable {
                 return FG(valF, valO); 
             case "B":
                 return FB(valF, valO); 
+            case "D":
+                return FD(valF, valO);
             default:
                 return false;
         }
     }
 
+    private boolean FD(int valF, int valD) {
+        boolean b;
+        if (valD == 4) {
+            b = true;
+        }
+        b = valD != valF;
+        return (valD != valF);
+    }
+
     private boolean FE(int valF, int valE) {
         int diff = valE - valF;
-        return (diff % 2 == 1);
+        return ((diff % 2 == 1) || (diff % 2 == -1));
     }
 
     private boolean FC(int valF, int valC) {

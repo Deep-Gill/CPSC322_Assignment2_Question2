@@ -17,7 +17,8 @@ public class B extends Variable {
     }
 
     public static boolean BF(int valB, int valF) {
-        return ((valF - valB == 1) || (valF - valB == -1));
+        int diff = valF - valB;
+        return ((diff == 1) || (diff == -1));
     }
 
 }

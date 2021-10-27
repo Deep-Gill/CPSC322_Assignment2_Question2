@@ -46,7 +46,8 @@ public class H extends Variable {
     }
 
     private boolean HE(int valH, int valE) {
-        return (valE != (valH - 2));
+        int sub = valH - 2;
+        return (valE != sub);
     }
 
     private boolean HD(int valH, int valD) {

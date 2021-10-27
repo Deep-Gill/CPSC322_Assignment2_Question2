@@ -28,7 +28,8 @@ public class E extends Variable {
     }
 
     private boolean ED(int valE, int valD) {
-        return (valE < (valD - 1));
+        int sub = valD - 1;
+        return (valE < sub);
     }
 
     private boolean EC(int valE, int valC) {
@@ -36,12 +37,13 @@ public class E extends Variable {
     }
 
     private boolean EH(int valE, int valH) {
-        return (valE != (valH - 2));
+        int sub = valH - 2;
+        return (valE != sub);
     }
 
     private boolean EF(int valE, int valF) {
         int diff = valE - valF;
-        return (diff % 2 == 1);
+        return ((diff % 2 == 1) || (diff % 2 == -1));
     }
     
 }
