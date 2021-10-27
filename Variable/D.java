@@ -44,11 +44,6 @@ public class D extends Variable {
     }
 
     private boolean DF(int valD, int valF) {
-        boolean b;
-        if (valF == 4 && valD == 4) {
-            b = true;
-        }
-        b = valD != valF;
         return (valF != valD);
     }
 
